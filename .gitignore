@@ -161,3 +161,6 @@ Thumbs.db
 # Build artifacts
 *.whl
 *.tar.gz
+
+# Downloaded source code (not part of this project)
+src/
