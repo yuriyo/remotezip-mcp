@@ -1,6 +1,6 @@
 [project]
 name = "remotezip-mcp-server"
-version = "0.1.0"
+version = "1.0.0"
 description = "MCP server for accessing remote zip files over HTTP/HTTPS/FTP"
 readme = "README.md"
 license = {text = "MIT"}
