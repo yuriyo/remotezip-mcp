@@ -37,30 +37,68 @@ pip install remotezip_mcp-1.0.0-py3-none-any.whl
 
 ### For VSCode
 
-1. Install the MCP extension for VSCode
-2. Create or update your MCP configuration file (usually `~/.vscode/mcp.json` or `~/.config/mcp/mcp.json`)
-3. Add the following configuration:
+1. **Install the MCP extension**:
+   - Search for "MCP (Model Context Protocol)" in VSCode extensions
+   - Install the extension by Anthropic
+
+2. **Create MCP configuration file**:
+   - Create the file `~/.vscode/mcp.json` (on macOS/Linux) or `%APPDATA%\Code\User\mcp.json` (on Windows)
+   - Or use the global config: `~/.config/mcp/mcp.json`
+
+3. **Add the following configuration to your mcp.json**:
 
 ```json
 {
   "mcpServers": {
     "remotezip": {
       "command": "remotezip-mcp",
-      "args": []
+      "args": [],
+      "env": {
+        "PATH": "$PATH"
+      }
     }
   }
 }
 ```
 
+4. **Restart VSCode** to load the MCP server
+
 ### For Cursor
 
-1. Open Cursor settings
-2. Navigate to MCP settings
-3. Add a new MCP server with the following configuration:
+1. **Open Cursor settings**:
+   - Press `Cmd/Ctrl + ,` to open settings
+   - Or go to File → Preferences → Settings
 
-- **Name**: RemoteZip MCP Server
+2. **Navigate to MCP settings**:
+   - Search for "mcp" in the settings search bar
+   - Look for "MCP: Servers" or "Model Context Protocol" section
+
+3. **Add a new MCP server** with these exact settings:
+
+- **Name**: `RemoteZip MCP Server`
 - **Command**: `remotezip-mcp`
-- **Arguments**: (leave empty)
+- **Arguments**: Leave this field empty
+- **Environment Variables**: (optional)
+
+4. **Save and restart Cursor** to activate the MCP server
+
+### Alternative: Manual MCP Configuration
+
+If your editor doesn't have built-in MCP support, you can also run the server manually:
+
+```bash
+# Start the MCP server
+remotezip-mcp
+```
+
+Then connect to it using your MCP client with the server running on the default port.
+
+### Troubleshooting
+
+- **Command not found**: Make sure `remotezip-mcp` is in your PATH after installation
+- **Permission denied**: Try running with `sudo` or check file permissions
+- **Server won't start**: Verify the installation with `remotezip-mcp --help`
+- **Configuration not loading**: Check the JSON syntax in your mcp.json file
 
 ## Usage
 

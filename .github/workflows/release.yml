@@ -99,30 +99,61 @@ jobs:
         echo "" >> $GITHUB_OUTPUT
         echo "#### For VSCode" >> $GITHUB_OUTPUT
         echo "" >> $GITHUB_OUTPUT
-        echo "1. Install the MCP extension for VSCode" >> $GITHUB_OUTPUT
-        echo "2. Create or update your MCP configuration file (usually \`~/.vscode/mcp.json\` or \`~/.config/mcp/mcp.json\`)" >> $GITHUB_OUTPUT
-        echo "3. Add the following configuration:" >> $GITHUB_OUTPUT
+        echo "1. **Install the MCP extension**:" >> $GITHUB_OUTPUT
+        echo "   - Search for \"MCP (Model Context Protocol)\" in VSCode extensions" >> $GITHUB_OUTPUT
+        echo "   - Install the extension by Anthropic" >> $GITHUB_OUTPUT
+        echo "" >> $GITHUB_OUTPUT
+        echo "2. **Create MCP configuration file**:" >> $GITHUB_OUTPUT
+        echo "   - Create the file \`~/.vscode/mcp.json\` (on macOS/Linux) or \`%APPDATA%\\\\Code\\\\User\\\\mcp.json\` (on Windows)" >> $GITHUB_OUTPUT
+        echo "   - Or use the global config: \`~/.config/mcp/mcp.json\`" >> $GITHUB_OUTPUT
+        echo "" >> $GITHUB_OUTPUT
+        echo "3. **Add the following configuration to your mcp.json**:" >> $GITHUB_OUTPUT
         echo "" >> $GITHUB_OUTPUT
         echo "\`\`\`json" >> $GITHUB_OUTPUT
         echo "{" >> $GITHUB_OUTPUT
         echo "  \"mcpServers\": {" >> $GITHUB_OUTPUT
         echo "    \"remotezip\": {" >> $GITHUB_OUTPUT
         echo "      \"command\": \"remotezip-mcp\"," >> $GITHUB_OUTPUT
-        echo "      \"args\": []" >> $GITHUB_OUTPUT
+        echo "      \"args\": []," >> $GITHUB_OUTPUT
+        echo "      \"env\": {" >> $GITHUB_OUTPUT
+        echo "        \"PATH\": \"\$PATH\"" >> $GITHUB_OUTPUT
+        echo "      }" >> $GITHUB_OUTPUT
         echo "    }" >> $GITHUB_OUTPUT
         echo "  }" >> $GITHUB_OUTPUT
         echo "}" >> $GITHUB_OUTPUT
         echo "\`\`\`" >> $GITHUB_OUTPUT
         echo "" >> $GITHUB_OUTPUT
+        echo "4. **Restart VSCode** to load the MCP server" >> $GITHUB_OUTPUT
+        echo "" >> $GITHUB_OUTPUT
         echo "#### For Cursor" >> $GITHUB_OUTPUT
         echo "" >> $GITHUB_OUTPUT
-        echo "1. Open Cursor settings" >> $GITHUB_OUTPUT
-        echo "2. Navigate to MCP settings" >> $GITHUB_OUTPUT
-        echo "3. Add a new MCP server with the following configuration:" >> $GITHUB_OUTPUT
+        echo "1. **Open Cursor settings**:" >> $GITHUB_OUTPUT
+        echo "   - Press \`Cmd/Ctrl + ,\` to open settings" >> $GITHUB_OUTPUT
+        echo "   - Or go to File → Preferences → Settings" >> $GITHUB_OUTPUT
         echo "" >> $GITHUB_OUTPUT
-        echo "- **Name**: RemoteZip MCP Server" >> $GITHUB_OUTPUT
+        echo "2. **Navigate to MCP settings**:" >> $GITHUB_OUTPUT
+        echo "   - Search for \"mcp\" in the settings search bar" >> $GITHUB_OUTPUT
+        echo "   - Look for \"MCP: Servers\" or \"Model Context Protocol\" section" >> $GITHUB_OUTPUT
+        echo "" >> $GITHUB_OUTPUT
+        echo "3. **Add a new MCP server** with these exact settings:" >> $GITHUB_OUTPUT
+        echo "" >> $GITHUB_OUTPUT
+        echo "- **Name**: \`RemoteZip MCP Server\`" >> $GITHUB_OUTPUT
         echo "- **Command**: \`remotezip-mcp\`" >> $GITHUB_OUTPUT
-        echo "- **Arguments**: (leave empty)" >> $GITHUB_OUTPUT
+        echo "- **Arguments**: Leave this field empty" >> $GITHUB_OUTPUT
+        echo "- **Environment Variables**: (optional)" >> $GITHUB_OUTPUT
+        echo "" >> $GITHUB_OUTPUT
+        echo "4. **Save and restart Cursor** to activate the MCP server" >> $GITHUB_OUTPUT
+        echo "" >> $GITHUB_OUTPUT
+        echo "#### Alternative: Manual MCP Configuration" >> $GITHUB_OUTPUT
+        echo "" >> $GITHUB_OUTPUT
+        echo "If your editor doesn't have built-in MCP support, you can also run the server manually:" >> $GITHUB_OUTPUT
+        echo "" >> $GITHUB_OUTPUT
+        echo "\`\`\`bash" >> $GITHUB_OUTPUT
+        echo "# Start the MCP server" >> $GITHUB_OUTPUT
+        echo "remotezip-mcp" >> $GITHUB_OUTPUT
+        echo "\`\`\`" >> $GITHUB_OUTPUT
+        echo "" >> $GITHUB_OUTPUT
+        echo "Then connect to it using your MCP client with the server running on the default port." >> $GITHUB_OUTPUT
         echo "" >> $GITHUB_OUTPUT
         echo "### Usage" >> $GITHUB_OUTPUT
         echo "" >> $GITHUB_OUTPUT
