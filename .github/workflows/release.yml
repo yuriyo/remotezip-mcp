@@ -1,0 +1,74 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'r*'
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Fetch full history for release notes
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install build dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install build twine
+
+    - name: Build package
+      run: python -m build
+
+    - name: Extract version from tag
+      id: get_version
+      run: |
+        # Extract version from tag (remove 'r' prefix)
+        TAG_NAME=${GITHUB_REF#refs/tags/r}
+        echo "version=$TAG_NAME" >> $GITHUB_OUTPUT
+        echo "tag=r$TAG_NAME" >> $GITHUB_OUTPUT
+
+    - name: Generate release notes
+      id: release_notes
+      run: |
+        # Get commits since last tag or from beginning
+        if git describe --tags --abbrev=0 2>/dev/null; then
+          LAST_TAG=$(git describe --tags --abbrev=0)
+          RELEASE_NOTES=$(git log --pretty=format:"%h %s" ${LAST_TAG}..HEAD)
+        else
+          RELEASE_NOTES=$(git log --pretty=format:"%h %s" --oneline)
+        fi
+
+        # Escape newlines for GitHub output
+        RELEASE_NOTES="${RELEASE_NOTES//'%'/'%25'}"
+        RELEASE_NOTES="${RELEASE_NOTES//$'\n'/'%0A'}"
+        RELEASE_NOTES="${RELEASE_NOTES//$'\r'/'%0D'}"
+
+        echo "notes<<EOF" >> $GITHUB_OUTPUT
+        echo "## Changes" >> $GITHUB_OUTPUT
+        echo "" >> $GITHUB_OUTPUT
+        echo "$RELEASE_NOTES" >> $GITHUB_OUTPUT
+        echo "" >> $GITHUB_OUTPUT
+        echo "## Installation" >> $GITHUB_OUTPUT
+        echo "" >> $GITHUB_OUTPUT
+        echo "\`\`\`bash" >> $GITHUB_OUTPUT
+        echo "pip install remotezip-mcp-server" >> $GITHUB_OUTPUT
+        echo "\`\`\`" >> $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
+
+    - name: Create GitHub Release
+      run: |
+        # Create release with GitHub CLI
+        gh release create ${{ steps.get_version.outputs.tag }} \
+          --title "Release ${{ steps.get_version.outputs.version }}" \
+          --notes "${{ steps.release_notes.outputs.notes }}" \
+          ./dist/remotezip_mcp_server-${{ steps.get_version.outputs.version }}-py3-none-any.whl \
+          ./dist/remotezip_mcp_server-${{ steps.get_version.outputs.version }}.tar.gz
