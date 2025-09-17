@@ -100,11 +100,11 @@ jobs:
         echo "#### For VSCode" >> $GITHUB_OUTPUT
         echo "" >> $GITHUB_OUTPUT
         echo "1. **Install the MCP extension**:" >> $GITHUB_OUTPUT
-        echo "   - Search for \"MCP (Model Context Protocol)\" in VSCode extensions" >> $GITHUB_OUTPUT
+        echo "   - Search for \"MCP \(Model Context Protocol\)\" in VSCode extensions" >> $GITHUB_OUTPUT
         echo "   - Install the extension by Anthropic" >> $GITHUB_OUTPUT
         echo "" >> $GITHUB_OUTPUT
         echo "2. **Create MCP configuration file**:" >> $GITHUB_OUTPUT
-        echo "   - Create the file \`~/.vscode/mcp.json\` (on macOS/Linux) or \`%APPDATA%\\\\Code\\\\User\\\\mcp.json\` (on Windows)" >> $GITHUB_OUTPUT
+        echo "   - Create the file \`~/.vscode/mcp.json\` \(on macOS/Linux\) or \`%APPDATA%\\\\Code\\\\User\\\\mcp.json\` \(on Windows\)" >> $GITHUB_OUTPUT
         echo "   - Or use the global config: \`~/.config/mcp/mcp.json\`" >> $GITHUB_OUTPUT
         echo "" >> $GITHUB_OUTPUT
         echo "3. **Add the following configuration to your mcp.json**:" >> $GITHUB_OUTPUT
@@ -116,7 +116,7 @@ jobs:
         echo "      \"command\": \"remotezip-mcp\"," >> $GITHUB_OUTPUT
         echo "      \"args\": []," >> $GITHUB_OUTPUT
         echo "      \"env\": {" >> $GITHUB_OUTPUT
-        echo "        \"PATH\": \"\$PATH\"" >> $GITHUB_OUTPUT
+        echo "        \"PATH\": \"\\\$PATH\"" >> $GITHUB_OUTPUT
         echo "      }" >> $GITHUB_OUTPUT
         echo "    }" >> $GITHUB_OUTPUT
         echo "  }" >> $GITHUB_OUTPUT
@@ -140,7 +140,7 @@ jobs:
         echo "- **Name**: \`RemoteZip MCP Server\`" >> $GITHUB_OUTPUT
         echo "- **Command**: \`remotezip-mcp\`" >> $GITHUB_OUTPUT
         echo "- **Arguments**: Leave this field empty" >> $GITHUB_OUTPUT
-        echo "- **Environment Variables**: (optional)" >> $GITHUB_OUTPUT
+        echo "- **Environment Variables**: \(optional\)" >> $GITHUB_OUTPUT
         echo "" >> $GITHUB_OUTPUT
         echo "4. **Save and restart Cursor** to activate the MCP server" >> $GITHUB_OUTPUT
         echo "" >> $GITHUB_OUTPUT
@@ -159,10 +159,10 @@ jobs:
         echo "" >> $GITHUB_OUTPUT
         echo "Once configured, you can use the following MCP tools:" >> $GITHUB_OUTPUT
         echo "" >> $GITHUB_OUTPUT
-        echo "- \`list_files(url)\`: List files in a remote zip archive" >> $GITHUB_OUTPUT
-        echo "- \`extract_file(url, filename, local_path)\`: Extract a specific file from a remote zip archive" >> $GITHUB_OUTPUT
-        echo "- \`get_file_info(url, filename)\`: Get information about a specific file" >> $GITHUB_OUTPUT
-        echo "- \`get_zip_statistics(url)\`: Get statistics about the zip archive" >> $GITHUB_OUTPUT
+        echo "- \`list_files\(url\)\`: List files in a remote zip archive" >> $GITHUB_OUTPUT
+        echo "- \`extract_file\(url, filename, local_path\)\`: Extract a specific file from a remote zip archive" >> $GITHUB_OUTPUT
+        echo "- \`get_file_info\(url, filename\)\`: Get information about a specific file" >> $GITHUB_OUTPUT
+        echo "- \`get_zip_statistics\(url\)\`: Get statistics about the zip archive" >> $GITHUB_OUTPUT
         echo "EOF" >> $GITHUB_OUTPUT
 
     - name: Create GitHub Release
@@ -180,7 +180,8 @@ jobs:
         ls -la dist/
         
         # Create release with GitHub CLI
+        echo "${{ steps.release_notes.outputs.notes }}" > release_notes.md
         gh release create ${{ steps.get_version.outputs.tag }} \
           --title "Release ${{ steps.get_version.outputs.version }}" \
-          --notes "${{ steps.release_notes.outputs.notes }}" \
+          --notes-file release_notes.md \
           ./dist/*
