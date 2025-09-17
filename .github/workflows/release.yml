@@ -59,16 +59,25 @@ jobs:
         echo "" >> $GITHUB_OUTPUT
         echo "## Installation" >> $GITHUB_OUTPUT
         echo "" >> $GITHUB_OUTPUT
+        echo "Download the appropriate file for your system and install with:" >> $GITHUB_OUTPUT
+        echo "" >> $GITHUB_OUTPUT
         echo "\`\`\`bash" >> $GITHUB_OUTPUT
-        echo "pip install remotezip-mcp-server" >> $GITHUB_OUTPUT
+        echo "pip install remotezip_mcp_server-${{ steps.get_version.outputs.version }}-py3-none-any.whl" >> $GITHUB_OUTPUT
+        echo "\`\`\`" >> $GITHUB_OUTPUT
+        echo "" >> $GITHUB_OUTPUT
+        echo "Or install from source:" >> $GITHUB_OUTPUT
+        echo "" >> $GITHUB_OUTPUT
+        echo "\`\`\`bash" >> $GITHUB_OUTPUT
+        echo "pip install remotezip_mcp_server-${{ steps.get_version.outputs.version }}.tar.gz" >> $GITHUB_OUTPUT
         echo "\`\`\`" >> $GITHUB_OUTPUT
         echo "EOF" >> $GITHUB_OUTPUT
 
     - name: Create GitHub Release
+      env:
+        GH_TOKEN: ${{ github.token }}
       run: |
         # Create release with GitHub CLI
         gh release create ${{ steps.get_version.outputs.tag }} \
           --title "Release ${{ steps.get_version.outputs.version }}" \
           --notes "${{ steps.release_notes.outputs.notes }}" \
-          ./dist/remotezip_mcp_server-${{ steps.get_version.outputs.version }}-py3-none-any.whl \
-          ./dist/remotezip_mcp_server-${{ steps.get_version.outputs.version }}.tar.gz
+          ./dist/*
