@@ -33,6 +33,35 @@ Download the latest release from the [Releases](https://github.com/yourusername/
 pip install remotezip_mcp-1.0.0-py3-none-any.whl
 ```
 
+## MCP Server Configuration
+
+### For VSCode
+
+1. Install the MCP extension for VSCode
+2. Create or update your MCP configuration file (usually `~/.vscode/mcp.json` or `~/.config/mcp/mcp.json`)
+3. Add the following configuration:
+
+```json
+{
+  "mcpServers": {
+    "remotezip": {
+      "command": "remotezip-mcp",
+      "args": []
+    }
+  }
+}
+```
+
+### For Cursor
+
+1. Open Cursor settings
+2. Navigate to MCP settings
+3. Add a new MCP server with the following configuration:
+
+- **Name**: RemoteZip MCP Server
+- **Command**: `remotezip-mcp`
+- **Arguments**: (leave empty)
+
 ## Usage
 
 Run the server:

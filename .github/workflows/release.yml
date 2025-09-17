@@ -81,6 +81,8 @@ jobs:
         echo "" >> $GITHUB_OUTPUT
         echo "## Installation" >> $GITHUB_OUTPUT
         echo "" >> $GITHUB_OUTPUT
+        echo "### Basic Installation" >> $GITHUB_OUTPUT
+        echo "" >> $GITHUB_OUTPUT
         echo "Download the appropriate file for your system and install with:" >> $GITHUB_OUTPUT
         echo "" >> $GITHUB_OUTPUT
         echo "\`\`\`bash" >> $GITHUB_OUTPUT
@@ -92,6 +94,44 @@ jobs:
         echo "\`\`\`bash" >> $GITHUB_OUTPUT
         echo "pip install remotezip_mcp_server-${{ steps.get_version.outputs.version }}.tar.gz" >> $GITHUB_OUTPUT
         echo "\`\`\`" >> $GITHUB_OUTPUT
+        echo "" >> $GITHUB_OUTPUT
+        echo "### MCP Server Configuration" >> $GITHUB_OUTPUT
+        echo "" >> $GITHUB_OUTPUT
+        echo "#### For VSCode" >> $GITHUB_OUTPUT
+        echo "" >> $GITHUB_OUTPUT
+        echo "1. Install the MCP extension for VSCode" >> $GITHUB_OUTPUT
+        echo "2. Create or update your MCP configuration file (usually \`~/.vscode/mcp.json\` or \`~/.config/mcp/mcp.json\`)" >> $GITHUB_OUTPUT
+        echo "3. Add the following configuration:" >> $GITHUB_OUTPUT
+        echo "" >> $GITHUB_OUTPUT
+        echo "\`\`\`json" >> $GITHUB_OUTPUT
+        echo "{" >> $GITHUB_OUTPUT
+        echo "  \"mcpServers\": {" >> $GITHUB_OUTPUT
+        echo "    \"remotezip\": {" >> $GITHUB_OUTPUT
+        echo "      \"command\": \"remotezip-mcp\"," >> $GITHUB_OUTPUT
+        echo "      \"args\": []" >> $GITHUB_OUTPUT
+        echo "    }" >> $GITHUB_OUTPUT
+        echo "  }" >> $GITHUB_OUTPUT
+        echo "}" >> $GITHUB_OUTPUT
+        echo "\`\`\`" >> $GITHUB_OUTPUT
+        echo "" >> $GITHUB_OUTPUT
+        echo "#### For Cursor" >> $GITHUB_OUTPUT
+        echo "" >> $GITHUB_OUTPUT
+        echo "1. Open Cursor settings" >> $GITHUB_OUTPUT
+        echo "2. Navigate to MCP settings" >> $GITHUB_OUTPUT
+        echo "3. Add a new MCP server with the following configuration:" >> $GITHUB_OUTPUT
+        echo "" >> $GITHUB_OUTPUT
+        echo "- **Name**: RemoteZip MCP Server" >> $GITHUB_OUTPUT
+        echo "- **Command**: \`remotezip-mcp\`" >> $GITHUB_OUTPUT
+        echo "- **Arguments**: (leave empty)" >> $GITHUB_OUTPUT
+        echo "" >> $GITHUB_OUTPUT
+        echo "### Usage" >> $GITHUB_OUTPUT
+        echo "" >> $GITHUB_OUTPUT
+        echo "Once configured, you can use the following MCP tools:" >> $GITHUB_OUTPUT
+        echo "" >> $GITHUB_OUTPUT
+        echo "- \`list_files(url)\`: List files in a remote zip archive" >> $GITHUB_OUTPUT
+        echo "- \`extract_file(url, filename, local_path)\`: Extract a specific file from a remote zip archive" >> $GITHUB_OUTPUT
+        echo "- \`get_file_info(url, filename)\`: Get information about a specific file" >> $GITHUB_OUTPUT
+        echo "- \`get_zip_statistics(url)\`: Get statistics about the zip archive" >> $GITHUB_OUTPUT
         echo "EOF" >> $GITHUB_OUTPUT
 
     - name: Create GitHub Release
