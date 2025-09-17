@@ -8,6 +8,8 @@ on:
 jobs:
   build-and-release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Required for creating releases
 
     steps:
     - name: Checkout code
@@ -26,7 +28,27 @@ jobs:
         pip install build twine
 
     - name: Build package
-      run: python -m build
+      run: |
+        python -m build
+        echo "Build completed with exit code: $?"
+
+    - name: Verify build artifacts
+      run: |
+        echo "Contents of dist directory:"
+        ls -la dist/
+        echo "Checking if files exist:"
+        if ls dist/remotezip_mcp_server-*.whl 1> /dev/null 2>&1; then
+          echo "✅ Wheel file found"
+        else
+          echo "❌ Wheel file not found"
+          exit 1
+        fi
+        if ls dist/remotezip_mcp_server-*.tar.gz 1> /dev/null 2>&1; then
+          echo "✅ Source file found"
+        else
+          echo "❌ Source file not found"
+          exit 1
+        fi
 
     - name: Extract version from tag
       id: get_version
@@ -76,6 +98,16 @@ jobs:
       env:
         GH_TOKEN: ${{ github.token }}
       run: |
+        # Check GitHub CLI status
+        echo "GitHub CLI version:"
+        gh --version
+        echo "Checking authentication:"
+        gh auth status || echo "Not authenticated"
+        
+        # List files to be uploaded
+        echo "Files to upload:"
+        ls -la dist/
+        
         # Create release with GitHub CLI
         gh release create ${{ steps.get_version.outputs.tag }} \
           --title "Release ${{ steps.get_version.outputs.version }}" \
