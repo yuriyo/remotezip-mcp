@@ -1,0 +1,43 @@
+[project]
+name = "remotezip-mcp-server"
+version = "0.1.0"
+description = "MCP server for accessing remote zip files over HTTP/HTTPS/FTP"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "Your Name", email = "your.email@example.com"},
+]
+maintainers = [
+    {name = "Your Name", email = "your.email@example.com"},
+]
+keywords = ["mcp", "remotezip", "zip", "http", "ftp", "server"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: System :: Archiving :: Compression",
+]
+dependencies = [
+    "mcp>=1.2.0",
+    "remotezip",
+]
+
+[project.urls]
+Homepage = "https://github.com/yourusername/remotezip-mcp-server"
+Repository = "https://github.com/yourusername/remotezip-mcp-server"
+Issues = "https://github.com/yourusername/remotezip-mcp-server/issues"
+Changelog = "https://github.com/yourusername/remotezip-mcp-server/blob/main/CHANGELOG.md"
+
+[project.scripts]
+remotezip-mcp = "remotezip_server:main"
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
