@@ -2,6 +2,10 @@
 
 An MCP server that provides tools for accessing remote zip files over HTTP, HTTPS, and FTP protocols without downloading the entire archive.
 
+<a href="https://glama.ai/mcp/servers/@yuriyo/remotezip-mcp">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@yuriyo/remotezip-mcp/badge" alt="RemoteZip Server MCP server" />
+</a>
+
 ## Features
 
 - List files in remote zip archives
